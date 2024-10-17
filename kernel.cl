@@ -20,12 +20,15 @@ __kernel void kernelMain(__read_only image2d_t inputImage, __write_only image2d_
         nuv[2] = (coordsNormalized[0] + i * subp + coordsNormalized[1] * newTilt) * pitch - center;
         nuv[2] = 1.0f - fract(nuv[2], &temp);
 
+
         float3 uvz = nuv;
         float z = floor(uvz[2] * tile[2]);
+        z = (float)(((int)z%(int)tile[0])+((int)tile[1]-1-(int)z/(int)tile[0])*(int)tile[0]);
         float focusMod = focus*(1.0f-2.0f*clamp(z/tile[2],0.0f,1.0f));
-        float x = (fmod(z, tile[0]) + clamp(uvz[0]+focusMod,0.0f,1.0f)) / tile[0];
+        float x = (fmod(z, tile[0]) + clamp(uvz[0]+focusMod,0.0f,1.0f)) / tile[0]; 
+
         float y = (floor(z / tile[0]) + uvz[1]) / tile[1]; 
-        float2 texArr = (float2)(1.0f - x * viewPortion[0], y * viewPortion[1]);
+        float2 texArr = (float2)(x * viewPortion[0], y * viewPortion[1]);
 
   		rgb[i] = convert_float4(read_imageui(inputImage, imageSampler, texArr));
   	}
