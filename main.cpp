@@ -33,7 +33,7 @@ class Params
 
 void storeGPUImage(cl::CommandQueue queue, cl::Image2D image, std::string path)
 {
-    size_t width{0}, height{0}, depth{0};
+    size_t width{0}, height{0};
     image.getImageInfo(CL_IMAGE_WIDTH, &width);
     image.getImageInfo(CL_IMAGE_HEIGHT, &height);
     std::vector<unsigned char> outData;
@@ -86,7 +86,6 @@ void process(Params params)
     
     if (std::filesystem::is_directory(params.inputPath))
     {
-        cl::array<size_t, 3> size{static_cast<size_t>(params.width), static_cast<size_t>(params.height), 1};
         int counter = 0;
         auto iterator = std::filesystem::directory_iterator(params.inputPath);
         std::vector<std::filesystem::path> files; 
@@ -116,6 +115,7 @@ void process(Params params)
         }
         if(counter < viewCount-1)
             throw std::runtime_error("The number of input images is lower than the expected quilt size");
+        std::cerr << "Storing the quilt" << std::endl;
         storeGPUImage(queue, inputImageGPU, std::filesystem::path(params.outputPath) / "quilt.png");
     }
     else
