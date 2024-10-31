@@ -99,7 +99,7 @@ void process(Params params)
                 throw std::runtime_error("Failed to load image " + file.string());
             cl::array<size_t, 3> origin{0, 0, 0};
             int x = counter % params.cols;
-            int y = counter / params.cols;
+            int y = params.rows - 1 - (counter / params.cols);
             origin[0] = x*viewWidth;
             origin[1] = y*viewHeight;
             cl::array<size_t, 3> size{static_cast<size_t>(viewWidth), static_cast<size_t>(viewHeight), 1};
@@ -107,7 +107,7 @@ void process(Params params)
                 throw std::runtime_error("Cannot upload the image " + file.string() + " to GPU");
             stbi_image_free(imageData);
             counter++;
-            if(counter >= viewCount)
+            if(counter > viewCount)
             {
                 std::cerr << "The number of input files is higher than the expected quilt size. Using only the first " << viewCount << " files" << std::endl;
                 break;
