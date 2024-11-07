@@ -24,8 +24,8 @@ __kernel void kernelMain(__read_only image2d_t inputImage, __write_only image2d_
         float3 uvz = nuv;
         float z = floor(uvz[2] * views);
         z = ((int)(z-(cols-1))%views);
-        z = (float)(((int)z%cols)+(rows-1-(int)z/cols)*cols);
         float focusMod = focus*(1.0f-2.0f*clamp(z/views,0.0f,1.0f));
+        z = (float)(((int)z%cols)+(rows-1-(int)z/cols)*cols);
         float x = (fmod(z, cols) + clamp(uvz[0]+focusMod,0.0f,1.0f)) / cols;
         float y = (floor(z / cols) + uvz[1]) / rows; 
         float2 texArr = (float2)(x * viewPortion[0], y * viewPortion[1]);
