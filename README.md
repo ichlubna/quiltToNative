@@ -3,5 +3,5 @@ This program can be used to convert the input quilt image into the native Lookin
 
 Example:
 ```
-./QuiltToNative -i quilt.jpg -o test.png -cols 8 -rows 6 -width 1536 -height 2048 -pitch 246.867 -tilt -0.185828 -center 0.350117 -viewPortion 1 -subp 0.000217014 -focus 0
+./QuiltToNative -i quilt.jpg -o outputDir -cols 8 -rows 6 -width 1536 -height 2048 -pitch 246.867 -tilt -0.185828 -center 0.350117 -viewPortion 1 -subp 0.000217014 -focus 0
 ```
