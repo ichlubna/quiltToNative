@@ -29,6 +29,7 @@ class Params
     float pitch;
     float center;
     float viewPortion;
+    bool quilt;
 };
 
 void storeGPUImage(cl::CommandQueue queue, cl::Image2D image, std::string path)
@@ -115,8 +116,11 @@ void process(Params params)
         }
         if(counter < viewCount-1)
             throw std::runtime_error("The number of input images is lower than the expected quilt size");
-        std::cerr << "Storing the quilt" << std::endl;
-        storeGPUImage(queue, inputImageGPU, std::filesystem::path(params.outputPath) / "quilt.png");
+        if(params.quilt)
+        {
+            std::cerr << "Storing the quilt" << std::endl;
+            storeGPUImage(queue, inputImageGPU, std::filesystem::path(params.outputPath) / "quilt.png");
+        }
     }
     else
     {
@@ -149,6 +153,7 @@ int main(int argc, char *argv[])
                             "--help, -h Prints this help\n"
                             "-i input quilt image or directory - 8-BIT RGBA, all views having the same resolution\n"
                             "-o output directory - results stored as output.png and quilt.png\n"
+                            "-q store quilt if folder input is used\n"
                             "-rows number of rows in the quilt\n"
                             "-cols number of cols in the quilt\n"
                             "-width horizonal resolution of the display\n"
@@ -181,6 +186,7 @@ int main(int argc, char *argv[])
     params.viewPortion = static_cast<float>(args["-viewPortion"]);
     params.subp = static_cast<float>(args["-subp"]);
     params.focus = static_cast<float>(args["-focus"]);
+    params.quilt = static_cast<bool>(args["-q"]);
 
     try
     {
