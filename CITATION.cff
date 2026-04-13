@@ -1,0 +1,39 @@
+cff-version: "1.2.0"
+authors:
+- family-names: Chlubna
+  given-names: Tomáš
+- family-names: Vlnas
+  given-names: Michal
+- family-names: Bařina
+  given-names: David
+- family-names: Milet
+  given-names: Tomáš
+- family-names: Zemčík
+  given-names: Pavel
+doi: 10.1016/j.sigpro.2025.110091
+message: If you use this software, please cite our article in the journal Signal Processing.
+preferred-citation:
+  authors:
+  - family-names: Chlubna
+    given-names: Tomáš
+  - family-names: Vlnas
+    given-names: Michal
+  - family-names: Bařina
+    given-names: David
+  - family-names: Milet
+    given-names: Tomáš
+  - family-names: Zemčík
+    given-names: Pavel
+  date-published: 2025
+  doi: 10.1016/j.sigpro.2025.110091
+  issn: 0165-1684
+  issue: 238
+  journal: Signal Processing
+  publisher:
+    name: Elsevier
+  start: 14
+  title: "Focus-aware compression and image quality metric for 3D displays"
+  type: article
+  url: "https://www.sciencedirect.com/science/article/pii/S0165168425002051"
+  volume: 2026
+title: "Focus-aware compression and image quality metric for 3D displays"
